@@ -34,6 +34,22 @@ class TestBinarySearchTree(unittest.TestCase):
         node = bst.insert(12)
         self.assertEqual(bst.root.right, node)
 
+    def test_insert_repeat_noop(self):
+        bst = self.bst
+        node = bst.insert(10)
+        self.assertEqual(bst.root, node)
+        self.assertIsNone(bst.root.left)
+        self.assertIsNone(bst.root.right)
+
+
+    def test_preorder(self):
+        bst = BinarySearchTree()
+        vals = [1,4,5,7,10,12,15,19]
+        for val in vals:
+            bst.insert(val)
+
+        tree_vals = bst.preorder_values()
+        self.assertEqual(vals, tree_vals)
 
 
 if __name__ == '__main__':

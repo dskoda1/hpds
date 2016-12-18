@@ -28,6 +28,10 @@ class TestTreeNode(unittest.TestCase):
         diff = TreeNode(2)
         self.assertNotEqual(node_one, diff)
 
+    def test_inequality(self):
+        node = TreeNode(5)
+        self.assertNotEqual(node, 5)
+
 
 if __name__ == '__main__':
     unittest.main()

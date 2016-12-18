@@ -32,7 +32,18 @@ class BinarySearchTree(object):
                 check_node.right = insert_node
             else:
                 self._insert(check_node.right, insert_node)
-        
+
+    def preorder_values(self):
+        vals = []
+        self._preorder_traversal(self._root, vals)
+        return vals
+
+    def _preorder_traversal(self, node, values):
+        if node:
+            self._preorder_traversal(node.left, values)
+            values.append(node.value)
+            self._preorder_traversal(node.right, values)
+
 
 
     @property
