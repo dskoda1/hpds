@@ -1,4 +1,5 @@
 from ..nodes import TreeNode
+import collections
 
 class BinarySearchTree(object):
     """Implementation of a binary search tree. Provides the following api:
@@ -10,28 +11,58 @@ class BinarySearchTree(object):
     def __init__(self):
         self._root = None
 
-    def insert(self, value):
+    def insert(self, value=None, values=None, success_report=False):
+        if not value and values and self._is_iter(values):
+            return self._insert_list(values)
+
+        if not value:
+            return None
+
         node = TreeNode(value)
-        if self._root is None:
-            self._root = node
+        node, inserted = self._insert(self._root, node)
+
+        if success_report:
+            return node, inserted
         else:
-            self._insert(self._root, node)
-        return node
+            return node
+
+    def _insert_list(self, list):
+        fail_count = 0
+        for x in list:
+            if x and self._is_iter(x):
+                num_failed = self._insert_list(x)
+                fail_count += num_failed
+            else:
+                node = TreeNode(x)
+                node, inserted = self._insert(self._root, node)
+                if not inserted:
+                    fail_count += 1
+
+        return fail_count
+
 
     def _insert(self, check_node, insert_node):
-        if check_node.value == insert_node.value:
-            return
+        inserted = False
+
+        if not self._root:
+            self._root = insert_node
+            inserted = True
+
         elif check_node.value > insert_node.value:
-            if check_node.left is None:
+            if not check_node.left:
                 check_node.left = insert_node
+                inserted = True
             else:
-                self._insert(check_node.left, insert_node)
+                inserted = self._insert(check_node.left, insert_node)
 
         elif check_node.value < insert_node.value:
-            if check_node.right is None:
+            if not check_node.right:
                 check_node.right = insert_node
+                inserted = True
             else:
-                self._insert(check_node.right, insert_node)
+                inserted = self._insert(check_node.right, insert_node)
+
+        return insert_node, inserted
 
     def preorder_values(self):
         vals = []
@@ -44,7 +75,8 @@ class BinarySearchTree(object):
             values.append(node.value)
             self._preorder_traversal(node.right, values)
 
-
+    def _is_iter(self, test):
+        return isinstance(test, collections.Iterable)
 
     @property
     def root(self):
