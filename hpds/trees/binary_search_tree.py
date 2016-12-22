@@ -4,15 +4,20 @@ import collections
 class BinarySearchTree(object):
     """Implementation of a binary search tree. Provides the following api:
 
-    - .root (property) Returns the root of the tree
-    - .insert(integer: value) (maintains bst properties)
+    - root (property) Returns the root of the tree
+    - insert(value :number, success_report :bool) (maintains bst properties)
+        -> if 'success_report' return whether insert successful
+    - insert_list(values :num_array) (recursively inserts nested lists)
+        -> fail_count: the number of values that failed to insert
+    - preorder_values() Obtain the values in preorder
+        -> values :num_array
     """
 
     def __init__(self):
         self._root = None
 
     def insert(self, value, success_report=False):
-        
+
         node = TreeNode(value)
         node, inserted = self._insert(self._root, node)
 
@@ -57,6 +62,7 @@ class BinarySearchTree(object):
             inserted = self._insert(check_node[side], insert_node)
 
         return inserted
+
     def preorder_values(self):
         vals = []
         self._preorder_traversal(self._root, vals)
