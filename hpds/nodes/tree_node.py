@@ -31,10 +31,15 @@ class TreeNode(object):
         self._right = right
 
     def __eq__(self, other):
-        """Override the default Equals behavior"""
         if isinstance(other, self.__class__):
             return self.__dict__ == other.__dict__
         return False
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    def __getitem__(self, key):
+        return self.__dict__['_{}'.format(key)]
+
+    def __setitem__(self, key, value):
+        self.__dict__['_{}'.format(key)] = value

@@ -32,6 +32,16 @@ class TestTreeNode(unittest.TestCase):
         node = TreeNode(5)
         self.assertNotEqual(node, 5)
 
+    def test_subscriptability(self):
+        node = TreeNode(5)
+        self.assertEqual(node['value'], 5)
+
+    def test_item_assignment(self):
+        node = TreeNode(5)
+
+        node['value'] = 5
+        self.assertEqual(node['value'], 5)
+
 
 if __name__ == '__main__':
     unittest.main()

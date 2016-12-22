@@ -11,10 +11,7 @@ class BinarySearchTree(object):
     def __init__(self):
         self._root = None
 
-    def insert(self, value=None, values=None, success_report=False):
-        if not value and values and self._is_iter(values):
-            return self._insert_list(values)
-
+    def insert(self, value, success_report=False):
         if not value:
             return None
 
@@ -26,11 +23,11 @@ class BinarySearchTree(object):
         else:
             return node
 
-    def _insert_list(self, list):
+    def insert_list(self, values):
         fail_count = 0
-        for x in list:
+        for x in values:
             if x and self._is_iter(x):
-                num_failed = self._insert_list(x)
+                num_failed = self.insert_list(x)
                 fail_count += num_failed
             else:
                 node = TreeNode(x)
@@ -40,30 +37,28 @@ class BinarySearchTree(object):
 
         return fail_count
 
-
     def _insert(self, check_node, insert_node):
         inserted = False
 
         if not self._root:
             self._root = insert_node
             inserted = True
-
         elif check_node.value > insert_node.value:
-            if not check_node.left:
-                check_node.left = insert_node
-                inserted = True
-            else:
-                inserted = self._insert(check_node.left, insert_node)
-
+            inserted = self._insert_to_side_of_node(check_node, 'left', insert_node)
         elif check_node.value < insert_node.value:
-            if not check_node.right:
-                check_node.right = insert_node
-                inserted = True
-            else:
-                inserted = self._insert(check_node.right, insert_node)
-
+            inserted = self._insert_to_side_of_node(check_node, 'right', insert_node)
+        elif check_node.value == insert_node.value:
+            inserted = False
         return insert_node, inserted
 
+    def _insert_to_side_of_node(self, check_node, side, insert_node):
+        if not check_node[side]:
+            check_node[side] = insert_node
+            inserted = True
+        else:
+            inserted = self._insert(check_node[side], insert_node)
+
+        return inserted
     def preorder_values(self):
         vals = []
         self._preorder_traversal(self._root, vals)

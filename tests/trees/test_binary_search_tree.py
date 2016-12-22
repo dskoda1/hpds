@@ -15,9 +15,6 @@ class TestBinarySearchTree(unittest.TestCase):
         self.bst = BinarySearchTree()
         self.bst.insert(value=10)
 
-    def test_none_insert(self):
-        self.assertIsNone(self.bst.insert())
-
     def test_insert_root(self):
         bst = BinarySearchTree()
         bst.insert(value=5)
@@ -75,7 +72,7 @@ class TestBinarySearchTree(unittest.TestCase):
     def test_insert_list(self):
         bst = BinarySearchTree()
         vals = [randint(-100000000, 100000000) for x in range(500)]
-        bst.insert(values=vals)
+        bst.insert_list(vals)
 
         uniq = set(vals)
         self.assertEqual(sorted(list(uniq)), bst.preorder_values())
@@ -83,7 +80,7 @@ class TestBinarySearchTree(unittest.TestCase):
     def test_fail_count_insert_list(self):
         bst = BinarySearchTree()
         vals = [50, 23, 42, 50, 50]
-        fail_count = bst.insert(values=vals)
+        fail_count = bst.insert_list(vals)
 
         uniq = set(vals)
         self.assertEqual(sorted(list(uniq)), bst.preorder_values())
@@ -92,7 +89,7 @@ class TestBinarySearchTree(unittest.TestCase):
     def test_nested_lists(self):
         bst = BinarySearchTree()
         vals = [8, [3, 4, 5], 9]
-        bst.insert(values=vals)
+        bst.insert_list(vals)
         vals = [8, 3, 4, 5, 9]
         self.assertEqual(sorted(vals), bst.preorder_values())
 
