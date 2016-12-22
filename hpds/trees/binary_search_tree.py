@@ -12,9 +12,7 @@ class BinarySearchTree(object):
         self._root = None
 
     def insert(self, value, success_report=False):
-        if not value:
-            return None
-
+        
         node = TreeNode(value)
         node, inserted = self._insert(self._root, node)
 
