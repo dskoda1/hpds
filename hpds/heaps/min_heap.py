@@ -8,10 +8,16 @@ class MinHeap(object):
 
 
     def _left_child(self, i):
-        return self._values[2 * i]
+        index = 2 * i
+        if index > len(self._values) - 1:
+            return None
+        return self._values[index]
 
     def _right_child(self, i):
-        return self._values[2 * i + 1]
+        index = 2 * i + 1
+        if index > len(self._values) - 1:
+            return None
+        return self._values[index]
 
     def _parent(self, i):
         i = float(i)

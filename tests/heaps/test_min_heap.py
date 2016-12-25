@@ -16,36 +16,40 @@ class TestMinHeap(unittest.TestCase):
             [i for i in range(1, 8)]
 
     def test_left_child(self):
-        self._test_equal_function(
-            MinHeap._left_child, 1, 2)
-        self._test_equal_function(
-            MinHeap._left_child, 2, 4)
-        self._test_equal_function(
-            MinHeap._left_child, 3, 6)
+        tuples = [
+            (1, 2),
+            (2, 4),
+            (3, 6),
+            (7, None),
+        ]
+        for x, y in tuples:
+            self._test_equal_function(
+                MinHeap._left_child, x, y)
 
     def test_right_child(self):
-        self._test_equal_function(
-            MinHeap._right_child, 1, 3)
-        self._test_equal_function(
-            MinHeap._right_child, 2, 5)
-        self._test_equal_function(
-            MinHeap._right_child, 3, 7)
+        tuples = [
+            (1, 3),
+            (2, 5),
+            (3, 7),
+            (7, None),
+        ]
+        for x, y in tuples:
+            self._test_equal_function(
+                MinHeap._right_child, x, y)
 
     def test_parent(self):
-        self._test_equal_function(
-            MinHeap._parent, 7, 3)
-        self._test_equal_function(
-            MinHeap._parent, 6, 3)
-        self._test_equal_function(
-            MinHeap._parent, 5, 2)
-        self._test_equal_function(
-            MinHeap._parent, 4, 2)
-        self._test_equal_function(
-            MinHeap._parent, 3, 1)
-        self._test_equal_function(
-            MinHeap._parent, 2, 1)
-        self._test_equal_function(
-            MinHeap._parent, 1, None)
+        tuples = [
+            (7, 3),
+            (6, 3),
+            (5, 2),
+            (4, 2),
+            (3, 1),
+            (2, 1),
+            (1, None),
+        ]
+        for x, y in tuples:
+            self._test_equal_function(
+                MinHeap._parent, x, y)
 
     def _test_equal_function(self, func, x, y):
         self.assertEqual(func(self.heap, x), y)
