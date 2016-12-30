@@ -51,5 +51,25 @@ class TestMinHeap(unittest.TestCase):
             self._test_equal_function(
                 MinHeap._parent, x, y)
 
+    def test_insert_many_duplicates(self):
+        self.heap = MinHeap()
+        vals = [randint(-5, 5) for x in range(1000)]
+        for val in vals:
+            self.heap.insert(val)
+        sorted_vals = sorted(vals)
+        for x in sorted_vals:
+            heap_val = self.heap.pop()
+            self.assertEqual(x, heap_val)
+
+    def test_insert_maintains_order(self):
+        self.heap = MinHeap()
+        vals = [randint(-1000000, 1000000) for x in range(10000)]
+        for val in vals:
+            self.heap.insert(val)
+        sorted_vals = sorted(vals)
+        for x in sorted_vals:
+            heap_val = self.heap.pop()
+            self.assertEqual(x, heap_val)
+
     def _test_equal_function(self, func, x, y):
         self.assertEqual(func(self.heap, x), y)
